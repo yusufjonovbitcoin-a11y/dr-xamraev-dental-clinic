@@ -83,7 +83,7 @@ export const BeforeAfterSection: React.FC<BeforeAfterSectionProps> = ({ onOpenBo
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-lg max-w-5xl mx-auto"
+          className="bg-slate-50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 border border-slate-200/80 shadow-lg max-w-5xl mx-auto"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
