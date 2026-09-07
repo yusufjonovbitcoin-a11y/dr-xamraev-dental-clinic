@@ -1,12 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import TopBar from '@/components/layout/TopBar';
-import Navbar from '@/components/layout/Navbar';
-import MobileBottomNav from '@/components/layout/MobileBottomNav';
-import Footer from '@/components/layout/Footer';
-import BookingModal from '@/components/modals/BookingModal';
-
+import React from 'react';
+import Link from 'next/link';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustStats } from '@/components/sections/TrustStats';
 import { ServicesSection } from '@/components/sections/ServicesSection';
@@ -17,51 +12,40 @@ import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { ReviewsSection } from '@/components/sections/ReviewsSection';
 import { AppointmentCta } from '@/components/sections/AppointmentCta';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { useBooking } from '@/context/BookingContext';
+import { ArrowRight, Sparkles, Stethoscope, Users, Cpu, MapPin } from 'lucide-react';
 
 export default function HomePage() {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<string | undefined>(undefined);
-
-  const handleOpenBooking = (service?: string) => {
-    setSelectedService(service);
-    setIsBookingOpen(true);
-  };
-
-  const handleCloseBooking = () => {
-    setIsBookingOpen(false);
-    setSelectedService(undefined);
-  };
+  const { openBooking } = useBooking();
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 selection:bg-blue-600 selection:text-white">
-      {/* Top Header */}
-      <TopBar />
-      <Navbar onOpenBooking={handleOpenBooking} />
+    <>
+      <HeroSection onOpenBooking={(s) => openBooking(s)} />
+      <TrustStats />
 
-      {/* Main Sections */}
-      <main className="flex-1">
-        <HeroSection onOpenBooking={handleOpenBooking} />
-        <TrustStats />
-        <ServicesSection onOpenBooking={handleOpenBooking} />
-        <TechSection />
-        <BeforeAfterSection onOpenBooking={handleOpenBooking} />
-        <DoctorsSection onOpenBooking={handleOpenBooking} />
-        <WhyChooseUs />
-        <ReviewsSection />
-        <AppointmentCta onOpenBooking={() => handleOpenBooking()} />
-        <ContactSection />
-      </main>
+      {/* Services Section with link to full /xizmatlar page */}
+      <ServicesSection onOpenBooking={(s) => openBooking(s)} />
 
-      {/* Footer & Navigation */}
-      <Footer />
-      <MobileBottomNav onOpenBooking={() => handleOpenBooking()} />
+      {/* Tech Section with link to full /texnologiyalar page */}
+      <TechSection />
 
-      {/* Interactive Booking Modal */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={handleCloseBooking}
-        defaultService={selectedService}
-      />
-    </div>
+      {/* Before / After Section with link to full /natijalar page */}
+      <BeforeAfterSection onOpenBooking={(s) => openBooking(s)} />
+
+      {/* Doctors Section with link to full /shifokorlar page */}
+      <DoctorsSection onOpenBooking={(d) => openBooking(undefined, d)} />
+
+      {/* 6 Reasons Why Choose Us */}
+      <WhyChooseUs />
+
+      {/* Patient Reviews */}
+      <ReviewsSection />
+
+      {/* Consultation Banner */}
+      <AppointmentCta onOpenBooking={() => openBooking()} />
+
+      {/* Contact & Map Section */}
+      <ContactSection />
+    </>
   );
 }

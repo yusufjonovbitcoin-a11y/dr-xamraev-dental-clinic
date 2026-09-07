@@ -1,4 +1,5 @@
 'use client';
+import { assetPath } from '@/utils/assets';
 
 import React from 'react';
 import Image from 'next/image';
@@ -79,7 +80,7 @@ export const TechSection: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <Image
-              src="./images/clinic-room.jpg"
+              src={assetPath("/images/clinic-room.jpg")}
               alt="Dr. Xamraev Stomatologiya Xonasi va Texnikasi"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"

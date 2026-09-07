@@ -1,4 +1,5 @@
 'use client';
+import { assetPath } from '@/utils/assets';
 
 import React from 'react';
 import Image from 'next/image';
@@ -125,7 +126,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
               {/* Main Photo Container */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-blue-950/15 border-4 border-white bg-slate-100 aspect-[4/5]">
                 <Image
-                  src="./images/doctor-hero.jpg"
+                  src={assetPath("/images/doctor-hero.jpg")}
                   alt="Dr. Xamraev Dental Clinic Bosh shifokori"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

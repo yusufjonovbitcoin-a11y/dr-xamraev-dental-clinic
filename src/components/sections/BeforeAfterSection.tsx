@@ -1,4 +1,5 @@
 'use client';
+import { assetPath } from '@/utils/assets';
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -14,8 +15,8 @@ const cases = [
     id: 'whitening',
     tabName: 'Zoom 4 Oqartirish',
     title: 'Professional Lazerli Oqartirish Natijasi',
-    beforeImage: './images/teeth-before.jpg',
-    afterImage: './images/teeth-after.jpg',
+    beforeImage: assetPath('/images/teeth-before.jpg'),
+    afterImage: assetPath('/images/teeth-after.jpg'),
     category: 'Estetik stomatologiya',
     timeSpent: '45 daqiqa (1 seans)',
     shadeImprovement: '8 ton yorqinroq',
@@ -26,8 +27,8 @@ const cases = [
     id: 'veneers',
     tabName: 'E-max Vinirlari',
     title: 'Estetik Keramika Vinirlari Bilan Gollivud Tabassumi',
-    beforeImage: './images/veneers-before.jpg',
-    afterImage: './images/veneers-after.jpg',
+    beforeImage: assetPath('/images/veneers-before.jpg'),
+    afterImage: assetPath('/images/veneers-after.jpg'),
     category: 'Ortopediya & Vinirlar',
     timeSpent: '5 kun (2 tashrif)',
     shadeImprovement: 'Mukammal simmetriya',

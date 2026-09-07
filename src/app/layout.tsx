@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import AppShell from '@/components/layout/AppShell';
+import { BASE_PATH } from '@/utils/assets';
 
 export const metadata: Metadata = {
   title: 'Dr. Xamraev Dental Clinic | Samarqanddagi Zamonaviy Stomatologiya',
@@ -16,22 +18,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Dr. Xamraev Dental Clinic' }],
   icons: {
-    icon: './images/logo.png',
-    apple: './images/logo.png',
+    icon: `${BASE_PATH}/images/logo.png`,
+    apple: `${BASE_PATH}/images/logo.png`,
   },
   openGraph: {
     title: 'Dr. Xamraev Dental Clinic — Mukammal Tabassum Markazi',
     description: 'Samarqanddagi Germaniya va Shveysariya texnologiyalariga asoslangan zamonaviy stomatologiya klinikasi. Mutlaqo og‘riqsiz.',
     url: 'https://yusufjonovbitcoin-a11y.github.io/dr-xamraev-dental-clinic/',
     siteName: 'Dr. Xamraev Dental Clinic',
-    images: [
-      {
-        url: './images/doctor-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Dr. Xamraev Dental Clinic',
-      },
-    ],
     locale: 'uz_UZ',
     type: 'website',
   },
@@ -54,10 +48,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="icon" href="./images/logo.png" />
+        <link rel="icon" href={`${BASE_PATH}/images/logo.png`} />
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
-        {children}
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

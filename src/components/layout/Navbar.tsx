@@ -1,17 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Calendar, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { assetPath } from '@/utils/assets';
+import { useBooking } from '@/context/BookingContext';
 
-interface NavbarProps {
-  onOpenBooking: () => void;
-}
-
-export default function Navbar({ onOpenBooking }: NavbarProps) {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,14 +23,20 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: 'Asosiy', href: '#hero' },
-    { name: 'Biz haqimizda', href: '#about' },
-    { name: 'Xizmatlar', href: '#services' },
-    { name: 'Shifokorlar', href: '#doctors' },
-    { name: 'Natijalar', href: '#results' },
-    { name: 'Savol-javob', href: '#faq' },
-    { name: 'Kontakt', href: '#contact' },
+    { name: 'Asosiy', href: '/' },
+    { name: 'Xizmatlar & Narxlar', href: '/xizmatlar' },
+    { name: 'Natijalar (Oldin/Keyin)', href: '/natijalar' },
+    { name: 'Shifokorlar', href: '/shifokorlar' },
+    { name: 'Texnologiyalar', href: '/texnologiyalar' },
+    { name: 'Aloqa & Manzil', href: '/aloqa' },
   ];
+
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/' || pathname === '' || pathname === '/dr-xamraev-dental-clinic' || pathname === '/dr-xamraev-dental-clinic/';
+    }
+    return pathname.includes(href);
+  };
 
   return (
     <>
@@ -37,38 +44,48 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
             ? 'glass-header shadow-sm py-3'
-            : 'bg-transparent py-4 sm:py-5 border-b border-slate-100/80'
+            : 'bg-white/95 backdrop-blur-md py-4 border-b border-slate-100'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="container-custom flex items-center justify-between">
           
           {/* Brand Logo */}
-          <a href="#hero" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <img
-              src="images/logo.png"
+              src={assetPath('/images/logo.png')}
               alt="Dental Clinic Logo"
               className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-brand-600 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all after:duration-300"
-              >
-                {link.name}
-              </a>
-            ))}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600">
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`py-1 relative transition-colors ${
+                    active
+                      ? 'text-blue-600 font-bold'
+                      : 'hover:text-blue-600 text-slate-700'
+                  }`}
+                >
+                  {link.name}
+                  {active && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Action Button & Mobile Hamburger */}
           <div className="flex items-center gap-3">
             <button
-              onClick={onOpenBooking}
-              className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/30 transition-all flex items-center gap-2 active:scale-95"
+              onClick={() => openBooking()}
+              className="btn-primary py-2.5 px-5 sm:py-3 sm:px-6 text-xs sm:text-sm shadow-md shadow-blue-600/25 flex items-center gap-2"
             >
               <Calendar className="w-4 h-4" />
               <span>Qabulga yozilish</span>
@@ -107,7 +124,11 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             >
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                  <img src="images/logo.png" alt="Dental Clinic" className="h-9 w-auto object-contain" />
+                  <img
+                    src={assetPath('/images/logo.png')}
+                    alt="Dental Clinic"
+                    className="h-9 w-auto object-contain"
+                  />
                   <button
                     onClick={() => setMobileMenuOpen(false)}
                     className="p-2 rounded-xl text-slate-500 hover:bg-slate-100"
@@ -116,18 +137,25 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                   </button>
                 </div>
 
-                <div className="flex flex-col gap-3 py-6 text-base font-bold text-slate-800">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-brand-50 hover:text-brand-600 transition-colors"
-                    >
-                      <span>{link.name}</span>
-                      <ArrowRight className="w-4 h-4 text-slate-400" />
-                    </a>
-                  ))}
+                <div className="flex flex-col gap-2 py-6 text-sm sm:text-base font-bold text-slate-800">
+                  {navLinks.map((link) => {
+                    const active = isActive(link.href);
+                    return (
+                      <Link
+                        key={link.name}
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center justify-between py-3 px-3.5 rounded-2xl transition-all ${
+                          active
+                            ? 'bg-blue-50 text-blue-600 font-extrabold'
+                            : 'hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <span>{link.name}</span>
+                        <ArrowRight className={`w-4 h-4 ${active ? 'text-blue-600' : 'text-slate-400'}`} />
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -135,15 +163,15 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onOpenBooking();
+                    openBooking();
                   }}
-                  className="w-full py-3.5 rounded-2xl bg-brand-600 text-white font-bold text-center shadow-lg shadow-brand-600/30 text-sm"
+                  className="w-full btn-primary py-3.5 text-sm"
                 >
                   Qabulga yozilish
                 </button>
                 <a
                   href="tel:+998933313333"
-                  className="block w-full py-3 rounded-2xl bg-slate-100 text-slate-800 font-bold text-xs text-center"
+                  className="block w-full py-3 rounded-2xl bg-slate-100 text-slate-800 font-bold text-xs text-center hover:bg-slate-200 transition-colors"
                 >
                   +998 (93) 331-33-33
                 </a>

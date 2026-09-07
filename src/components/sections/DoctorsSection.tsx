@@ -1,4 +1,5 @@
 'use client';
+import { assetPath } from '@/utils/assets';
 
 import React from 'react';
 import Image from 'next/image';
@@ -13,7 +14,7 @@ const doctors = [
   {
     name: 'Dr. Xamraev',
     role: 'Klinika asoschisi & Bosh implantolog',
-    image: './images/doctor-xamraev.jpg',
+    image: assetPath('/images/doctor-xamraev.jpg'),
     experience: '15 yillik amaliyot',
     specialty: 'Murakkab implantatsiya, suyak plastikasi, All-on-4 / All-on-6',
     education: 'Yevropa Implantologlar Assotsiatsiyasi (ITI) aʼzosi',
@@ -22,7 +23,7 @@ const doctors = [
   {
     name: 'Dr. Zulfiya Karimova',
     role: 'Yetakchi ortodont & Estetist',
-    image: './images/doctor-karimova.jpg',
+    image: assetPath('/images/doctor-karimova.jpg'),
     experience: '9 yillik amaliyot',
     specialty: 'Shaffof elaynerlar, Damon breket tizimi, E-max vinirlar',
     education: 'Xalqaro Ortodontlar Jamiyati (WFO) sertifikati',
@@ -31,7 +32,7 @@ const doctors = [
   {
     name: 'Dr. Aziz Rustamov',
     role: 'Terapevt & Mikroskopist',
-    image: './images/doctor-rustamov.jpg',
+    image: assetPath('/images/doctor-rustamov.jpg'),
     experience: '8 yillik amaliyot',
     specialty: 'Mikroskopik endodontiya, badiiy restavratsiya, bolalar stomatologiyasi',
     education: 'Germaniya Carl Zeiss mikroskopiya akademiyasi',
