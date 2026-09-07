@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { ChevronsLeftRight } from 'lucide-react';
 
 interface BeforeAfterSliderProps {
@@ -17,99 +17,91 @@ export default function BeforeAfterSlider({
   afterImage,
   beforeLabel = 'Oldin',
   afterLabel = 'Keyin',
-  aspectRatio = 'aspect-[16/10]',
+  aspectRatio = 'aspect-[4/3] sm:aspect-[16/10]',
   alt = 'Davolash natijasi oldin va keyin',
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
 
-  const handleMove = useCallback((clientX: number) => {
+  const updatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
-    const percentage = Math.max(5, Math.min(95, (x / rect.width) * 100));
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
     setSliderPosition(percentage);
   }, []);
 
-  useEffect(() => {
-    const handleMouseUp = () => setIsDragging(false);
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      handleMove(e.clientX);
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging || !e.touches[0]) return;
-      handleMove(e.touches[0].clientX);
-    };
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {}
+    updatePosition(e.clientX);
+  };
 
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      window.addEventListener('touchmove', handleTouchMove);
-      window.addEventListener('touchend', handleMouseUp);
-    }
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    updatePosition(e.clientX);
+  };
 
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleMouseUp);
-    };
-  }, [isDragging, handleMove]);
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = false;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {}
+  };
 
   return (
     <div
       ref={containerRef}
-      className={`comparison-container relative w-full ${aspectRatio} rounded-3xl overflow-hidden shadow-2xl select-none touch-none bg-slate-900 border-4 border-white cursor-ew-resize`}
-      onMouseDown={(e) => {
-        setIsDragging(true);
-        handleMove(e.clientX);
-      }}
-      onTouchStart={(e) => {
-        setIsDragging(true);
-        if (e.touches[0]) handleMove(e.touches[0].clientX);
-      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      className={`relative w-full ${aspectRatio} rounded-3xl overflow-hidden shadow-2xl select-none bg-slate-900 border-4 border-white cursor-ew-resize`}
+      style={{ touchAction: 'none' }}
     >
-      {/* Background Image: BEFORE (Right/Full) */}
+      {/* 1. Base Image: BEFORE (Full background) */}
       <img
         src={beforeImage}
         alt={`${alt} - ${beforeLabel}`}
-        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+        draggable={false}
       />
 
-      {/* Foreground Clipped Image: AFTER (Left) */}
-      <div
-        className="comparison-after-wrapper absolute inset-y-0 left-0 overflow-hidden pointer-events-none"
-        style={{ width: `${sliderPosition}%` }}
-      >
-        <img
-          src={afterImage}
-          alt={`${alt} - ${afterLabel}`}
-          className="comparison-inner-img absolute inset-y-0 left-0 h-full object-cover object-center pointer-events-none"
-        />
-      </div>
+      {/* 2. Foreground Clipped Image: AFTER (Clipped with inset) */}
+      <img
+        src={afterImage}
+        alt={`${alt} - ${afterLabel}`}
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+        style={{
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+          WebkitClipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+        }}
+        draggable={false}
+      />
 
-      {/* Divider Vertical Line */}
+      {/* 3. Divider Line */}
       <div
-        className="absolute inset-y-0 w-1 bg-white shadow-[0_0_15px_rgba(0,0,0,0.4)] pointer-events-none -ml-0.5 z-20"
+        className="absolute inset-y-0 w-0.5 bg-white shadow-[0_0_15px_rgba(0,0,0,0.6)] pointer-events-none z-20"
         style={{ left: `${sliderPosition}%` }}
       >
-        {/* Central Circular Drag Handle */}
-        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 w-11 h-11 rounded-full bg-white shadow-2xl flex items-center justify-center border-2 border-blue-600 text-blue-600 active:scale-95 transition-transform">
+        {/* Perfectly Circular Handle */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white shadow-2xl flex items-center justify-center border-2 border-blue-600 text-blue-600 pointer-events-none shrink-0 ring-4 ring-black/10">
           <ChevronsLeftRight className="w-5 h-5 stroke-[2.5]" />
         </div>
       </div>
 
-      {/* Floating Badges */}
-      <div className="absolute top-4 left-4 z-10">
-        <span className="px-3.5 py-1.5 rounded-xl bg-navy-900/80 backdrop-blur-md text-white text-xs font-bold tracking-wider uppercase shadow-md border border-white/20">
+      {/* 4. Badges (Keyin / Oldin) */}
+      <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10 pointer-events-none">
+        <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-navy-900/85 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase shadow-md border border-white/20">
           {afterLabel}
         </span>
       </div>
 
-      <div className="absolute top-4 right-4 z-10">
-        <span className="px-3.5 py-1.5 rounded-xl bg-navy-900/80 backdrop-blur-md text-white text-xs font-bold tracking-wider uppercase shadow-md border border-white/20">
+      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 pointer-events-none">
+        <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-navy-900/85 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase shadow-md border border-white/20">
           {beforeLabel}
         </span>
       </div>
