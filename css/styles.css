@@ -1,0 +1,208 @@
+/* =============================================================
+   Dental Clinic - Premium Modern Styling & GSAP Helpers
+   Palette: Sky Blue (#0284c7), Cyan (#0ea5e9), Dark Navy (#0f172a)
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+:root {
+  --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --brand-blue: #0284c7;
+  --brand-cyan: #0ea5e9;
+  --brand-navy: #0f172a;
+  --brand-accent: #38bdf8;
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: #1e293b;
+  overflow-x: hidden;
+  background-color: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Safe area padding for mobile bottom navbar (iOS and Android) */
+@media (max-width: 1024px) {
+  body {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ================= GLASSMORPHISM & BORDERS ================= */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+}
+
+.glass-card-dark {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-bottom-nav {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 -8px 30px -4px rgba(15, 23, 42, 0.08);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Subtle gradient border effects */
+.gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 1.5rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: calc(1.5rem + 1.5px);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.4), rgba(14, 165, 233, 0.1), rgba(2, 132, 199, 0.05));
+  z-index: -1;
+}
+
+/* ================= 50/50 MACRO TEETH COMPARISON SLIDER ================= */
+.comparison-container {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.28);
+  user-select: none;
+  aspect-ratio: 16 / 9;
+  touch-action: none;
+  background-color: #0f172a;
+}
+
+.comparison-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.comparison-after-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  border-right: 3.5px solid #0284c7;
+  box-shadow: 4px 0 16px rgba(2, 132, 199, 0.4);
+}
+
+.comparison-after-wrapper .comparison-image {
+  width: 100cqw;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.comparison-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: ew-resize;
+  transition: box-shadow 0.2s ease;
+  will-change: transform, left;
+}
+
+.comparison-handle:hover, .comparison-handle:active {
+  box-shadow: 0 6px 28px rgba(2, 132, 199, 0.8), 0 0 0 5px rgba(255, 255, 255, 1);
+}
+
+/* ================= MICRO-INTERACTIONS & CARDS ================= */
+.hover-card-rise {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.hover-card-rise:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 35px -12px rgba(2, 132, 199, 0.18);
+}
+
+/* Details marker reset */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .comparison-container {
+    aspect-ratio: 4 / 3;
+    border-radius: 1.25rem;
+  }
+  .comparison-handle {
+    width: 42px;
+    height: 42px;
+  }
+}
