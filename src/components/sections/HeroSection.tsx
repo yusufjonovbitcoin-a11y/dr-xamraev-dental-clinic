@@ -1,5 +1,6 @@
 'use client';
 import { assetPath } from '@/utils/assets';
+import { ShaderBackground } from '@/components/ui/ShaderBackground';
 
 import React from 'react';
 import Image from 'next/image';
@@ -23,6 +24,9 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-b from-slate-50 via-white to-blue-50/30">
+      <div className="absolute inset-0 -z-10 opacity-25 pointer-events-none">
+        <ShaderBackground className="w-full h-full" palette="dental" speed={-0.35} />
+      </div>
       {/* Ambient background glows */}
       <div className="absolute top-0 right-1/4 -z-10 h-[450px] w-[450px] rounded-full bg-blue-400/10 blur-[120px] pointer-events-none" />
       <div className="absolute top-1/3 left-10 -z-10 h-[350px] w-[350px] rounded-full bg-cyan-400/10 blur-[100px] pointer-events-none" />

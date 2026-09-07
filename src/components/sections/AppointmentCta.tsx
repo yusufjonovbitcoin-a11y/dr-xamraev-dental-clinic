@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ShaderBackground } from '@/components/ui/ShaderBackground';
 import { motion } from 'framer-motion';
 import { Calendar, PhoneCall, Sparkles, CheckCircle2, ShieldAlert } from 'lucide-react';
 
@@ -14,6 +15,10 @@ export const AppointmentCta: React.FC<AppointmentCtaProps> = ({ onOpenBooking })
       <div className="container-custom">
         <div className="relative rounded-[2.5rem] bg-gradient-to-br from-navy-950 via-navy-900 to-blue-950 text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl border border-navy-800">
           
+          {/* Interactive WebGL Mesh Drift Shader Background */}
+          <div className="absolute inset-0 opacity-40 pointer-events-none">
+            <ShaderBackground className="w-full h-full" palette="dental" speed={-0.45} />
+          </div>
           {/* Ambient Glows */}
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />

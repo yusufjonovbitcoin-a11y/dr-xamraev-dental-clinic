@@ -1,5 +1,6 @@
 'use client';
 import { assetPath } from '@/utils/assets';
+import { ShaderBackground } from '@/components/ui/ShaderBackground';
 
 import React from 'react';
 import Image from 'next/image';
@@ -47,6 +48,10 @@ const technologies = [
 export const TechSection: React.FC = () => {
   return (
     <section id="technology" className="py-24 bg-navy-950 text-white relative overflow-hidden">
+      {/* Interactive WebGL Mesh Drift Shader Background */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <ShaderBackground className="w-full h-full" palette="dental" speed={-0.3} />
+      </div>
       {/* Ambient background glows */}
       <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
