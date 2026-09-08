@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Calendar, Menu, Phone, Sparkles, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useBooking } from '@/context/BookingContext';
+import { assetPath } from '@/utils/assets';
 
 const navLinks = [
   { name: 'Asosiy', href: '/' },
@@ -19,11 +20,11 @@ const navLinks = [
 function Brand() {
   return (
     <span className="flex items-center gap-3">
-      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-navy-950 text-blue-300 shadow-sm"><Sparkles className="h-5 w-5" /></span>
-      <span className="leading-none">
-        <strong className="block font-heading text-base tracking-[-0.03em] text-navy-950 sm:text-lg">Dr. Xamraev</strong>
-        <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.22em] text-blue-700">Dental Clinic</span>
-      </span>
+      <img
+        src={assetPath("/images/logo.png")}
+        alt="Dental Clinic Logo"
+        className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+      />
     </span>
   );
 }
