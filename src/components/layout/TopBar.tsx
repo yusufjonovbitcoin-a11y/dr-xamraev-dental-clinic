@@ -29,7 +29,7 @@ export default function TopBar() {
           </a>
           <span className="text-navy-800">|</span>
           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 text-[11px] font-semibold border border-emerald-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             <span>Navbatchi qabul ochiq</span>
           </div>
         </div>

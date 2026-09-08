@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import AppShell from '@/components/layout/AppShell';
-import { BASE_PATH } from '@/utils/assets';
 
 export const metadata: Metadata = {
-  title: 'Dr. Xamraev Dental Clinic | Samarqanddagi Zamonaviy Stomatologiya',
-  description: 'Samarqanddagi Germaniya va Shveysariya texnologiyalariga asoslangan xalqaro darajadagi zamonaviy stomatologiya klinikasi. Tish implantatsiyasi, E-max vinirlari, Zoom 4 oqartirish va 100% og‘riqsiz davolash.',
+  title: 'Dr. Xamraev Dental Clinic — Samarqand',
+  description: 'Samarqanddagi zamonaviy raqamli stomatologiya klinikasi. Diagnostika, davolash, implantatsiya, ortodontiya va estetik stomatologiya.',
   keywords: [
     'stomatologiya Samarqand',
     'dental clinic',
@@ -18,12 +17,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Dr. Xamraev Dental Clinic' }],
   icons: {
-    icon: `${BASE_PATH}/images/logo.png`,
-    apple: `${BASE_PATH}/images/logo.png`,
+    icon: '/dr-xamraev-dental-clinic/favicon.svg',
   },
   openGraph: {
-    title: 'Dr. Xamraev Dental Clinic — Mukammal Tabassum Markazi',
-    description: 'Samarqanddagi Germaniya va Shveysariya texnologiyalariga asoslangan zamonaviy stomatologiya klinikasi. Mutlaqo og‘riqsiz.',
+    title: 'Dr. Xamraev Dental Clinic — Samarqand',
+    description: 'Diagnostikadan yakuniy natijagacha — zamonaviy stomatologik yordam bir joyda.',
     url: 'https://yusufjonovbitcoin-a11y.github.io/dr-xamraev-dental-clinic/',
     siteName: 'Dr. Xamraev Dental Clinic',
     locale: 'uz_UZ',
@@ -32,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0066ff',
+  themeColor: '#081b22',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -48,9 +46,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="icon" href={`${BASE_PATH}/images/logo.png`} />
+        <link rel="icon" href="/dr-xamraev-dental-clinic/favicon.svg" />
       </head>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
+      <body className="min-h-screen bg-[#f6faf9] text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
         <AppShell>{children}</AppShell>
       </body>
     </html>

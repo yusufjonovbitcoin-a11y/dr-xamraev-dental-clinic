@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { MapPin, Phone, Clock, Send, Instagram, ArrowUpRight } from 'lucide-react';
-import { assetPath } from '@/utils/assets';
+import { MapPin, Phone, Clock, Send, Instagram, ArrowUpRight, Sparkles } from 'lucide-react';
 import { useBooking } from '@/context/BookingContext';
 
 export default function Footer() {
@@ -17,12 +16,9 @@ export default function Footer() {
           
           {/* Col 1: Brand & Bio */}
           <div className="lg:col-span-4 space-y-4">
-            <Link href="/" className="inline-block">
-              <img
-                src={assetPath('/images/logo.png')}
-                alt="Dental Clinic Logo"
-                className="h-11 w-auto object-contain brightness-110"
-              />
+            <Link href="/" className="inline-flex items-center gap-3 text-white">
+              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-400/15 text-blue-300"><Sparkles className="h-5 w-5" /></span>
+              <span><strong className="block font-heading text-lg">Dr. Xamraev</strong><span className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-300">Dental Clinic</span></span>
             </Link>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
               Samarqanddagi xalqaro standartlarga javob beruvchi zamonaviy stomatologiya klinikasi. 12 yillik tajriba, Germaniya va Shveytsariya texnologiyalari asosida og‘riqsiz davolash.

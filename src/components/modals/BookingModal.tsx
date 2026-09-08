@@ -32,6 +32,15 @@ export default function BookingModal({
     }
   }, [defaultService]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, onClose]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -89,11 +98,15 @@ export default function BookingModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: 'spring', duration: 0.5, bounce: 0.1 }}
-          className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl z-10 my-auto border border-slate-100"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="booking-title"
+          className="relative w-full max-w-lg rounded-[2rem] bg-white p-6 sm:p-8 shadow-2xl z-10 my-auto border border-slate-100"
         >
           {/* Close button */}
           <button
             onClick={onClose}
+            aria-label="Oynani yopish"
             className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-navy-900 hover:bg-slate-100 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -105,7 +118,7 @@ export default function BookingModal({
                 <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-600 mb-2">
                   Onlayn Qabul
                 </span>
-                <h3 className="font-heading text-2xl sm:text-3xl font-bold text-navy-900">
+                <h3 id="booking-title" className="font-heading text-2xl sm:text-3xl font-bold text-navy-900">
                   Qabulga Yozilish
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -195,7 +208,8 @@ export default function BookingModal({
                     <div className="relative">
                       <Calendar className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                       <input
-                        type="date"
+                      type="date"
+                      min={new Date().toISOString().split('T')[0]}
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         className="w-full pl-9 pr-2 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm focus:border-blue-600 outline-none"

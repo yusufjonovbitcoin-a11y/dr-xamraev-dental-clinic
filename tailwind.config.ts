@@ -9,22 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        blue: {
+          50: '#ecfdf9', 100: '#d0f7ee', 200: '#a5ecdf', 300: '#70dacb',
+          400: '#3bbfaf', 500: '#169b8e', 600: '#0b7c73', 700: '#0a635d',
+          800: '#0d4f4b', 900: '#0d423f', 950: '#062725',
+        },
         brand: {
-          50: '#f0f7ff',
-          100: '#e0effe',
-          200: '#bae0fd',
-          300: '#7cc5fb',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0066ff',
-          700: '#0052cc',
-          800: '#003d99',
-          900: '#002966',
+          50: '#ecfdf9', 100: '#d0f7ee', 200: '#a5ecdf', 300: '#70dacb',
+          400: '#3bbfaf', 500: '#169b8e', 600: '#0b7c73', 700: '#0a635d',
+          800: '#0d4f4b', 900: '#0d423f',
         },
         navy: {
-          800: '#11192e',
-          900: '#0b1329',
-          950: '#060a17',
+          800: '#18313b',
+          900: '#102932',
+          950: '#081b22',
         },
         surface: {
           light: '#f8fafc',
@@ -36,8 +34,8 @@ const config: Config = {
         heading: ['var(--font-heading)', 'sans-serif'],
       },
       boxShadow: {
-        'premium': '0 10px 30px -10px rgba(0, 102, 255, 0.08), 0 20px 40px -15px rgba(11, 19, 41, 0.05)',
-        'glow': '0 0 40px rgba(0, 102, 255, 0.25)',
+        'premium': '0 24px 70px -32px rgba(8, 27, 34, 0.28)',
+        'glow': '0 0 40px rgba(11, 124, 115, 0.22)',
         'glass': '0 8px 32px 0 rgba(11, 19, 41, 0.06)',
       }
     },

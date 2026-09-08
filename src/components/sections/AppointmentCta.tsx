@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { ShaderBackground } from '@/components/ui/ShaderBackground';
 import { motion } from 'framer-motion';
 import { Calendar, PhoneCall, Sparkles, CheckCircle2, ShieldAlert } from 'lucide-react';
 
@@ -13,15 +12,10 @@ export const AppointmentCta: React.FC<AppointmentCtaProps> = ({ onOpenBooking })
   return (
     <section className="py-20 bg-white relative">
       <div className="container-custom">
-        <div className="relative rounded-[2.5rem] bg-gradient-to-br from-navy-950 via-navy-900 to-blue-950 text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl border border-navy-800">
+        <div className="relative rounded-[2.5rem] bg-navy-950 text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl border border-white/10">
           
-          {/* Interactive WebGL Mesh Drift Shader Background */}
-          <div className="absolute inset-0 opacity-40 pointer-events-none">
-            <ShaderBackground className="w-full h-full" palette="dental" speed={-0.45} />
-          </div>
-          {/* Ambient Glows */}
+          <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:64px_64px]" />
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             
@@ -32,11 +26,11 @@ export const AppointmentCta: React.FC<AppointmentCtaProps> = ({ onOpenBooking })
 
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">
               Sog‘lom va nurli tabassumga <br />
-              <span className="text-gradient">bugunoq erishing</span>
+              <span className="text-blue-300">birinchi qadamni qo‘ying</span>
             </h2>
 
             <p className="text-slate-300 text-base sm:text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              Dr. Xamraev klinikasida dastlabki ko‘rik, 3D rentgen tahlili va shaxsiy davolash rejasi mutlaqo bepul. Navbatsiz va qulay vaqtda qabulga yoziling.
+              Siz uchun qulay vaqtni tanlang. Ko‘rik davomida holatingiz baholanadi va tushunarli davolash rejasi tuziladi.
             </p>
 
             {/* CTAs */}
@@ -51,7 +45,7 @@ export const AppointmentCta: React.FC<AppointmentCtaProps> = ({ onOpenBooking })
 
               <a
                 href="tel:+998933313333"
-                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-base transition-all border border-white/20 flex items-center justify-center gap-3"
+                className="w-full sm:w-auto px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-base transition-all border border-white/20 flex items-center justify-center gap-3"
               >
                 <PhoneCall className="w-5 h-5 text-cyan-400" />
                 <span>+998 (93) 331-33-33</span>
